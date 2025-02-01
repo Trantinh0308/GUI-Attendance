@@ -6,6 +6,7 @@ import java.sql.Time;
 //class use send request
 public class AttendanceDTO {
     private Long employeeId;
+    private String attendanceDevice;
     private String imageCode;
     private Date date;
     private Time time;
@@ -19,6 +20,14 @@ public class AttendanceDTO {
 
     public void setEmployeeId(Long employeeId) {
         this.employeeId = employeeId;
+    }
+
+    public String getAttendanceDevice() {
+        return attendanceDevice;
+    }
+
+    public void setAttendanceDevice(String attendanceDevice) {
+        this.attendanceDevice = attendanceDevice;
     }
 
     public String getImageCode() {

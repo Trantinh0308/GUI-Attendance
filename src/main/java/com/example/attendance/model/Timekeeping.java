@@ -12,20 +12,15 @@ public class Timekeeping {
 		super();
 	}
 
-
-
 	public Timekeeping(Employee employee) {
 		super();
 		listTimekeeping = new ArrayList<>();
 		this.employee = employee;
 	}
 
-
-
 	public Employee getEmployee() {
 		return employee;
 	}
-
 
 
 	public void setEmployee(Employee employee) {
@@ -56,5 +51,4 @@ public class Timekeeping {
 	public String toString() {
 		return "Timekeeping [employee=" + employee + ", listTimekeeping=" + listTimekeeping + ", sum=" + sum + "]";
 	}
-	
 }

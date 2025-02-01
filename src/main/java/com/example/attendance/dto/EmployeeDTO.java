@@ -1,42 +1,19 @@
-package com.example.attendance.model;
+package com.example.attendance.dto;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name="employee")
-public class Employee {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "account_id", referencedColumnName = "id")
-    private Account account;
-    @Column(name = "name")
+public class EmployeeDTO {
     private String fullName;
-    @Column(name = "gender")
     private String gender;
-    @Column(name = "phone")
     private String phoneNumber;
-    @Column(name = "department")
     private String department;
 
-    public Employee() {
+    public EmployeeDTO() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
+    public EmployeeDTO(String fullName, String gender, String phoneNumber, String department) {
+        this.fullName = fullName;
+        this.gender = gender;
+        this.phoneNumber = phoneNumber;
+        this.department = department;
     }
 
     public String getFullName() {

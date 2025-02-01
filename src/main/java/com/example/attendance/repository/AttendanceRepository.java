@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
 import java.sql.Date;
 import java.util.List;
 
@@ -28,6 +27,5 @@ public interface AttendanceRepository extends JpaRepository<Attendance,Long> {
     Attendance findFirstCheckInByDateAndEmployee(@Param("date") Date date, @Param("employeeId") Long employeeId);
 
     @Query("SELECT a FROM Attendance a WHERE a.date = :date AND a.status = 'Check out' AND a.employee.id = :employeeId ORDER BY a.id ASC")
-    Attendance findFirstCheckOutByDateAndEmployee(@Param("date") Date date, @Param("employeeId") Long employeeId);
-
+    List<Attendance> findFirstCheckOutByDateAndEmployee(@Param("date") Date date, @Param("employeeId") Long employeeId);
 }

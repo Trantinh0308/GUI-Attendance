@@ -5,20 +5,21 @@ import com.example.attendance.model.Employee;
 import com.example.attendance.model.Timekeeping;
 import com.example.attendance.model.WorkCalendar;
 import com.example.attendance.repository.AttendanceRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.YearMonth;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CalendarService {
+    private static final Logger log = LogManager.getLogger(CalendarService.class);
     private final EmployeeService employeeService;
     private final AttendanceRepository attendanceRepository;
 
@@ -34,7 +35,7 @@ public class CalendarService {
 
         for (int day = 1; day <= currentMonth.lengthOfMonth(); day++) {
             LocalDate date = LocalDate.of(currentMonth.getYear(), currentMonth.getMonth(), day);
-            String dayOfWeek = Utils.getShortDayOfWeek(date.getDayOfWeek().getValue());  // Lấy tên thứ trong tuần
+            String dayOfWeek = Utils.getShortDayOfWeek(date.getDayOfWeek().getValue());
             list.add(new WorkCalendar(String.format("%02d", day), dayOfWeek));
         }
 
@@ -64,15 +65,15 @@ public class CalendarService {
         for (int day = 1; day <= lengthOfMonth; day++) {
             Date dateSql = Utils.createSqlDate(day,month,year);
             Attendance attendanceCheckIn = attendanceRepository.findFirstCheckInByDateAndEmployee(dateSql,employeeId);
-            Attendance attendanceCheckOut = attendanceRepository.findFirstCheckOutByDateAndEmployee(dateSql,employeeId);
+            List<Attendance> attendanceCheckOut = attendanceRepository.findFirstCheckOutByDateAndEmployee(dateSql,employeeId);
 
-            if (attendanceCheckIn == null || attendanceCheckOut == null){
+            if (attendanceCheckIn == null || attendanceCheckOut.isEmpty()){
                 listWorkTime.add(0.0);
                 continue;
             }
             Time timeCheckIn = attendanceCheckIn.getTime();
-            Time timeCheckOut = attendanceCheckOut.getTime();
-            Double timeWork = Utils.CalculatorWorkingInDay(timeCheckIn,timeCheckOut);
+            Time timeCheckOut = attendanceCheckOut.get(0).getTime();
+            Double timeWork = Utils.calculatorWorkingInDay(timeCheckIn,timeCheckOut);
             listWorkTime.add(timeWork);
         }
         Optional<Employee> optional = employeeService.getEmployeeById(employeeId);

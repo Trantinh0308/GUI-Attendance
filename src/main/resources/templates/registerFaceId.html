@@ -150,8 +150,8 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="address" class="form-label">Địa chỉ</label>
-                        <input type="text" class="form-control" id="address" name="address" placeholder="Nhập địa chỉ" required disabled>
+                        <label for="phone" class="form-label">Điện thoại</label>
+                        <input type="text" class="form-control" id="phone" name="phone" placeholder="Nhập số điện thoại" required disabled>
                     </div>
 
                     <div class="mb-3">
@@ -159,7 +159,7 @@
                         <select class="form-select" id="department" name="department" required disabled>
                             <option value="" disabled selected>Chọn phòng ban</option>
                             <option value="hr">Nhân sự</option>
-                            <option value="it">Công nghệ thông tin</option>
+                            <option value="it">Kế toán</option>
                             <option value="marketing">Marketing</option>
                             <option value="sales">Bán hàng</option>
                         </select>
@@ -210,7 +210,7 @@
                 const employeeData = {
                     fullName: formData.get('fullName'),
                     gender: document.getElementById('gender').options[document.getElementById('gender').selectedIndex].text,
-                    address: formData.get('address'),
+                    phoneNumber: formData.get('phone'),
                     department: document.getElementById('department').options[document.getElementById('department').selectedIndex].text
                 };
 
@@ -228,7 +228,7 @@
                             const employeeId = data.id;
 
                             // Gửi POST request đến API /capture_images
-                            return fetch('http://localhost:6996/capture_images', {
+                            return fetch('http://localhost:8888/capture_images', {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json',
@@ -246,7 +246,7 @@
 
                         // Tạo đối tượng video element và hiển thị video stream
                         const imageElement = document.getElementById('camera');
-                        const imageUrl = 'http://localhost:6996/capture_images';
+                        const imageUrl = 'http://localhost:8888/capture_images';
                         imageElement.src = imageUrl;
                         alert('Bắt đầu lấy dữ liệu khuôn mặt');
 

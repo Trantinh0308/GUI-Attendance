@@ -1,6 +1,7 @@
 package com.example.attendance.controller;
 
 import com.example.attendance.dto.AttendanceDTO;
+import com.example.attendance.dto.EmployeeDTO;
 import com.example.attendance.errors.BadRequestAlertException;
 import com.example.attendance.model.Attendance;
 import com.example.attendance.model.Employee;
@@ -44,7 +45,7 @@ public class ApiController {
     }
 
     @PostMapping("/employee")
-    public ResponseEntity<Map<String, Long>> registerEmployee(@RequestBody Employee employeeRequest) {
+    public ResponseEntity<Map<String, Long>> registerEmployee(@RequestBody EmployeeDTO employeeRequest) {
         try {
             Employee employee = employeeService.saveEmployee(employeeRequest);
             Map<String, Long> response = new HashMap<>();
